@@ -63,10 +63,11 @@ button{cursor:pointer;border:0;background:none}
 }
 .brand{display:flex;align-items:center;gap:12px;min-width:0}
 .brand .logo{
-  width:44px;height:44px;border-radius:13px;display:grid;place-items:center;font-size:22px;flex:none;
-  background:linear-gradient(135deg,var(--gold-l),#8a5f22);color:#20180a;
-  box-shadow:inset 0 0 0 1px rgba(255,255,255,.35), 0 4px 12px rgba(0,0,0,.3);
+  width:48px;height:48px;border-radius:13px;display:grid;place-items:center;flex:none;
+  background:#fff;overflow:hidden;font-size:22px;color:#20180a;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.4), 0 4px 12px rgba(0,0,0,.35);
 }
+.brand .logo img{width:100%;height:100%;object-fit:contain;display:block;padding:2px;}
 .brand h1{font-size:16.5px;margin:0;font-weight:800;letter-spacing:.2px;line-height:1.3}
 .brand small{display:block;color:#b7cbbd;font-size:11.5px;font-weight:600;margin-top:3px}
 .app-header .bar{margin-inline-start:auto;display:flex;gap:9px;flex-wrap:wrap}
@@ -181,13 +182,13 @@ table.grid thead th{
   background:#e9dfc3;color:#0b1710;font-weight:800;white-space:nowrap;font-size:12.5px;
   position:sticky;z-index:6;
 }
-table.grid thead tr:first-child th{top:0;z-index:7;height:47px}
-table.grid thead tr:nth-child(2) th{top:47px;background:#efe6cd}
+table.grid thead tr.head-row-1 th{top:0;z-index:7;height:47px}
+table.grid thead tr.head-row-2 th{top:47px;background:#efe6cd}
+table.grid thead tr.print-title-row{display:none}
 table.grid tbody tr:last-child td{border-bottom:0}
 .daycell{font-weight:800;color:#0b1710;white-space:nowrap;font-size:13.5px;
   position:sticky;right:0;z-index:4;background:inherit}
 
-/* ★★★ السحب والإفلات ★★★ */
 .cell{cursor:pointer;min-width:58px;position:relative;background:#fff;transition:filter .15s, opacity .15s}
 .cell:hover{filter:brightness(.94)}
 .cell:hover::after{
@@ -199,10 +200,8 @@ table.grid tbody tr:last-child td{border-bottom:0}
 }
 .cell:hover:empty::before{opacity:1}
 .cell[draggable="true"]:hover::before{
-  content:"✥";
-  position:absolute;top:2px;left:3px;
-  font-size:9px;color:rgba(0,0,0,.35);
-  pointer-events:none;opacity:1;
+  content:"✥";position:absolute;top:2px;left:3px;
+  font-size:9px;color:rgba(0,0,0,.35);pointer-events:none;opacity:1;
 }
 .cell.dragging{opacity:.35}
 .cell.drop-ok{box-shadow:inset 0 0 0 3px var(--accent) !important}
@@ -240,7 +239,6 @@ table.grid tbody tr:last-child td{border-bottom:0}
 }
 .grp-chip button:hover{background:#d94a3a;color:#fff}
 
-/* ★★★ التوقيعات ★★★ */
 .signatures-section{
   display:flex;
   justify-content:space-between;
@@ -538,9 +536,71 @@ table.preview td.name-cell{font-weight:800;text-align:right}
 .app-footer .foot-dev .dev-icon{color:var(--gold-l);font-size:13px}
 .app-footer .foot-dev b{color:#f6f1e2;font-weight:800;letter-spacing:.1px}
 
-.print-head,.print-foot{display:none}
+.newroom-modal{
+  background:linear-gradient(180deg,#fff 0%,#fbfdfa 100%);
+  border:1px solid var(--line);
+  border-radius:20px;
+  width:min(500px,100%);
+  padding:0;
+  overflow:hidden;
+  box-shadow:0 32px 90px rgba(6,18,12,.5), 0 0 0 1px rgba(255,255,255,.6) inset;
+}
+.newroom-modal .nr-head{
+  background:linear-gradient(135deg,var(--navy) 0%,#16402f 100%);
+  color:#f4ecd8;
+  padding:18px 20px;
+  display:flex;align-items:center;gap:12px;
+  border-bottom:3px solid var(--gold);
+}
+.newroom-modal .nr-head .nr-icon{
+  width:44px;height:44px;border-radius:13px;display:grid;place-items:center;
+  background:linear-gradient(135deg,var(--gold-l),var(--gold));color:#2a1c05;
+  font-size:22px;flex:none;box-shadow:inset 0 0 0 1px rgba(255,255,255,.4);
+}
+.newroom-modal .nr-head .nr-titles{flex:1;min-width:0}
+.newroom-modal .nr-head h3{margin:0;font-size:16px;font-weight:800;line-height:1.3}
+.newroom-modal .nr-head p{margin:3px 0 0;color:#b7cbbd;font-size:11.5px;font-weight:600}
+.newroom-modal .nr-head .icon-btn{background:rgba(255,255,255,.14);color:#f4ecd8}
+.newroom-modal .nr-head .icon-btn:hover{background:rgba(255,255,255,.26);color:#fff}
+.newroom-modal .nr-body{padding:20px 20px 8px}
+.newroom-modal .nr-field{position:relative;margin-bottom:14px;}
+.newroom-modal .nr-field label{
+  display:block;font-size:11.5px;font-weight:800;color:var(--navy);
+  margin-bottom:6px;letter-spacing:.2px;
+}
+.newroom-modal .nr-field label .req{color:#d94a3a}
+.newroom-modal .nr-field input,
+.newroom-modal .nr-field select{
+  width:100%;padding:11px 13px;border:1.5px solid var(--line);border-radius:11px;
+  background:#fff;font-weight:700;font-size:13.5px;transition:.18s;
+}
+.newroom-modal .nr-field input:focus,
+.newroom-modal .nr-field select:focus{
+  outline:none;border-color:var(--accent);
+  box-shadow:0 0 0 4px rgba(47,125,95,.15);
+  transform:translateY(-1px);
+}
+.newroom-modal .nr-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.newroom-modal .nr-foot{
+  display:flex;gap:8px;align-items:center;
+  padding:14px 20px 18px;background:#f6f9f3;
+  border-top:1px solid var(--line);
+}
+.newroom-modal .nr-foot .spacer{flex:1}
+.newroom-modal .nr-foot .btn{padding:11px 18px;font-size:13.5px;border-radius:11px}
+.newroom-modal .type-pills{display:flex;gap:8px;flex-wrap:wrap}
+.newroom-modal .type-pills .tp{
+  flex:1;min-width:100px;padding:10px 12px;border:1.5px solid var(--line);
+  border-radius:11px;background:#fff;font-weight:800;font-size:12.5px;
+  display:flex;align-items:center;justify-content:center;gap:6px;
+  transition:.16s;cursor:pointer;color:var(--ink);
+}
+.newroom-modal .type-pills .tp:hover{border-color:var(--accent);background:#f5f9f1}
+.newroom-modal .type-pills .tp.active{
+  border-color:var(--accent);background:linear-gradient(135deg,#e6f2dd,#d8ecd0);
+  color:var(--navy);box-shadow:0 0 0 3px rgba(47,125,95,.14);
+}
 
-/* ═══ الاستجابة ═══ */
 @media (max-width:1024px){
   .toolbar-grid{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
   .room-cards{grid-template-columns:repeat(auto-fill,minmax(140px,1fr))}
@@ -552,7 +612,7 @@ table.preview td.name-cell{font-weight:800;text-align:right}
   .grp-chip input[type=text],.grp-chip input[type=number]{font-size:12px !important}
   .app-header{flex-direction:column;align-items:stretch;padding:10px 12px;gap:10px}
   .brand{justify-content:center;text-align:center}
-  .brand .logo{width:38px;height:38px;font-size:20px}
+  .brand .logo{width:40px;height:40px;font-size:20px}
   .brand h1{font-size:14px}
   .brand small{font-size:10.5px}
   .app-header .bar{margin-inline-start:0;justify-content:center;width:100%}
@@ -575,7 +635,7 @@ table.preview td.name-cell{font-weight:800;text-align:right}
   table.grid{font-size:11.5px;min-width:520px}
   table.grid th,table.grid td{padding:6px 4px}
   table.grid thead th{font-size:10.5px}
-  table.grid thead tr:first-child th{height:auto;padding:7px 4px}
+  table.grid thead tr.head-row-1 th{height:auto;padding:7px 4px}
   .cell{min-width:48px}
   .cell .s{font-size:11px}
   .cell .t,.cell .r{font-size:9.5px}
@@ -611,6 +671,8 @@ table.preview td.name-cell{font-weight:800;text-align:right}
   .signatures-section{padding:12px 8px;gap:14px}
   .sig-col{min-width:100%}
   .sig-role{font-size:12.5px}
+  .newroom-modal .nr-body{padding:16px 14px 4px}
+  .newroom-modal .nr-row{grid-template-columns:1fr}
 }
 @media (max-width:480px){
   .bar .btn{flex:1 1 100%}
@@ -618,13 +680,15 @@ table.preview td.name-cell{font-weight:800;text-align:right}
   .room-cards{grid-template-columns:1fr 1fr}
   .level-name{font-size:14px}
   .modal-bg{padding:8px}
+  .newroom-modal .nr-body{padding:14px 12px 4px}
+  .newroom-modal .nr-foot{padding:12px 14px 14px}
 }
 
 /* ══════════════════════════════════════════════
-   ★★★ الطباعة: A4 أفقي في صفحة واحدة ★★★
+   ★★★ الطباعة: A4 أفقي على صفحتين ★★★
    ══════════════════════════════════════════════ */
 @media print{
-  @page{size:A4 landscape;margin:5mm}
+  @page{size:A4 landscape;margin:8mm 8mm}
   html,body{background:#fff !important;min-height:auto;width:100%}
   .no-print{display:none !important}
   .app-header,.app-footer{display:none !important}
@@ -634,124 +698,180 @@ table.preview td.name-cell{font-weight:800;text-align:right}
   .panel.printing{
     display:block !important;
     padding:0;
-    page-break-after:auto;
-    page-break-inside:avoid;
-    break-inside:avoid;
     width:100%;
   }
   
-  /* رأس الطباعة */
-  .print-head{
-    display:flex !important;align-items:center;justify-content:space-between;
-    gap:8px;padding-bottom:4px;margin-bottom:4px;
-    border-bottom:2px solid #0f2e22;
-  }
-  .print-logo{
-    flex:0 0 auto;display:flex;align-items:center;justify-content:center;
-    width:52px;height:52px;
-  }
-  .print-logo img{
-    max-width:100%;max-height:100%;object-fit:contain;
-    -webkit-print-color-adjust:exact;print-color-adjust:exact;
-  }
-  .print-title-wrap{flex:1 1 auto;text-align:center;min-width:0}
-  .print-title{
-    margin:0;font-size:10pt;color:#000;font-weight:800;line-height:1.35;
-    letter-spacing:.1px;
-  }
-  .print-title .l1,.print-title .l2{display:block}
-  
-  /* الجدول — مدمج ليتناسب مع صفحة واحدة */
+  /* السماح للجدول بالانقسام على صفحتين */
   .table-wrap{
-    border:1px solid #2b3a30 !important;
+    border:1.5px solid #2b3a30 !important;
     box-shadow:none !important;
     max-height:none !important;
     overflow:visible !important;
-    page-break-inside:avoid;
+    border-radius:0 !important;
+    page-break-inside:auto !important;
+    break-inside:auto !important;
   }
+  
   table.grid{
-    font-size:7pt;
-    table-layout:fixed;
-    width:100%;
-    border-collapse:collapse;
+    font-size:9.5pt !important;
+    width:100% !important;
+    border-collapse:collapse !important;
+    border-spacing:0 !important;
   }
   table.grid th,table.grid td{
-    border:1px solid #48564c !important;
-    padding:1.5px 1.5px !important;
-    line-height:1.15;
+    border:1px solid #2b3a30 !important;
+    padding:4px 3px !important;
+    line-height:1.25;
+    font-size:9.5pt !important;
     word-wrap:break-word;
-    overflow:hidden;
+    -webkit-print-color-adjust:exact !important;
+    print-color-adjust:exact !important;
   }
-  table.grid thead th{
+  
+  /* تكرار رأس الجدول على كل صفحة */
+  thead{display:table-header-group !important}
+  
+  /* ★ رأس الطباعة (الشعارات + العنوان) — يتكرر تلقائيًا عبر thead ★ */
+  table.grid thead tr.print-title-row{display:table-row !important}
+  table.grid thead tr.print-title-row th{
+    border:0 !important;
+    border-bottom:2.5px solid #0f2e22 !important;
+    padding:4px 0 7px 0 !important;
+    background:#fff !important;
+    position:static !important;
+    -webkit-print-color-adjust:exact !important;
+    print-color-adjust:exact !important;
+  }
+  .print-head-inner{
+    display:flex !important;
+    align-items:center !important;
+    justify-content:space-between !important;
+    gap:10px !important;
+  }
+  .print-head-inner .print-logo-wrap{
+    width:55px;
+    height:55px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex:none;
+  }
+  .print-head-inner .print-logo-wrap img{
+    max-width:100%;
+    max-height:100%;
+    object-fit:contain;
+    -webkit-print-color-adjust:exact;
+    print-color-adjust:exact;
+  }
+  .print-head-inner .print-title-wrap{
+    flex:1;
+    text-align:center;
+    min-width:0;
+  }
+  .print-title{
+    margin:0;
+    font-size:11.5pt;
+    color:#000;
+    font-weight:800;
+    line-height:1.35;
+    letter-spacing:.1px;
+  }
+  .print-title .l1,
+  .print-title .l2{display:block}
+  
+  /* رؤوس الأعمدة */
+  table.grid thead tr.head-row-1 th,
+  table.grid thead tr.head-row-2 th{
     position:static !important;
     background:#e9dfc3 !important;
-    font-size:7pt !important;
-    padding:2px 1.5px !important;
+    font-size:9.5pt !important;
+    padding:4px 3px !important;
+    -webkit-print-color-adjust:exact !important;
+    print-color-adjust:exact !important;
   }
-  table.grid thead tr:first-child th{height:auto !important}
-  thead{display:table-header-group}
+  table.grid thead tr.head-row-1 th{height:auto !important}
+  table.grid thead tr.head-row-2 th{background:#efe6cd !important}
+  
   tr{page-break-inside:avoid;break-inside:avoid}
-  .daycell{position:static !important;font-size:7.5pt}
+  
+  .daycell{
+    position:static !important;
+    right:auto !important;
+    font-size:10pt !important;
+    -webkit-print-color-adjust:exact !important;
+    print-color-adjust:exact !important;
+  }
+  .cell{
+    -webkit-print-color-adjust:exact !important;
+    print-color-adjust:exact !important;
+  }
   .cell:hover::after{display:none}
   .cell:empty::before{display:none}
   .cell[draggable="true"]:hover::before{display:none !important}
   .cell.dragging,.cell.drop-ok,.cell.drop-bad{opacity:1 !important;box-shadow:none !important}
-  .cell .s{font-size:7pt;line-height:1.15}
-  .cell .t{font-size:5.7pt;line-height:1.1}
-  .cell .r{font-size:6.2pt;line-height:1.1}
-  .cell .k{font-size:5pt;padding:0 2px;margin-top:0;line-height:1}
-  .no-times-cell{display:table-cell !important;font-size:7pt}
+  .cell .s{font-size:9.5pt;line-height:1.25}
+  .cell .t{font-size:7.5pt;line-height:1.2}
+  .cell .r{font-size:8.5pt;line-height:1.2}
+  .cell .k{font-size:6.5pt;padding:1px 4px;margin-top:1px;line-height:1.1}
+  .no-times-cell{display:table-cell !important;font-size:9.5pt}
   
   .grp-chip{background:transparent !important;padding:0 !important;gap:2px}
   .grp-chip input{
     background:transparent !important;color:#000 !important;border:0 !important;
-    padding:0 !important;text-align:center;font-size:7.5pt !important;
+    padding:0 !important;text-align:center;font-size:9.5pt !important;
     -webkit-appearance:none;width:auto !important;
   }
-  .grp-chip .lbl{color:#333 !important;font-size:5.5pt}
+  .grp-chip .lbl{color:#333 !important;font-size:6.5pt}
   .grp-chip button{display:none !important}
   
-  /* ★ التوقيعات ★ */
+  /* ★ التوقيعات: مساحة للتوقيع + الاسم بخط عريض بدون أي خطوط ★ */
   .signatures-section{
     display:flex !important;
     justify-content:space-between;
-    align-items:flex-start;
-    gap:25mm;
-    margin-top:4mm;
-    padding:0 10mm;
+    align-items:flex-end;
+    gap:30mm;
+    margin-top:10mm;
+    padding:0 15mm;
     background:transparent !important;
     border:0 !important;
     border-radius:0 !important;
-    page-break-inside:avoid;
-    break-inside:avoid;
+    page-break-inside:avoid !important;
+    break-inside:avoid !important;
   }
   .sig-col{
     flex:1;
     min-width:0;
     text-align:center;
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-end;
   }
   .sig-role{
-    font-size:10pt;
+    font-size:11pt;
     font-weight:800;
     color:#000;
-    margin-bottom:12mm;
+    margin-bottom:22mm;
     line-height:1.3;
   }
   .sig-input{
     width:100%;
     border:0 !important;
-    border-bottom:1.2px solid #333 !important;
+    border-bottom:0 !important;
     border-radius:0 !important;
     background:transparent !important;
-    padding:1px 2px !important;
-    font-size:10pt;
+    padding:0 !important;
+    font-size:14pt !important;
     text-align:center;
-    color:#000;
+    color:#000 !important;
     box-shadow:none !important;
     -webkit-appearance:none;
-    font-weight:700;
+    font-weight:900 !important;
+    letter-spacing:.3px;
+    margin:0 !important;
+    -webkit-print-color-adjust:exact !important;
+    print-color-adjust:exact !important;
   }
-  .sig-input::placeholder{color:transparent !important}
+  .sig-input::placeholder{color:transparent !important;font-weight:900 !important}
   
   *{-webkit-print-color-adjust:exact !important;print-color-adjust:exact !important}
 }
@@ -761,7 +881,10 @@ table.preview td.name-cell{font-weight:800;text-align:right}
 
 <header class="app-header no-print" id="appHeader">
   <div class="brand">
-    <div class="logo">🌿</div>
+    <div class="logo">
+      <img src="https://l.top4top.io/p_3954hjl0b1.jpg" alt="شعار الكلية"
+           onerror="this.parentElement.textContent='🌿';">
+    </div>
     <div>
       <h1>كلية الزراعة — جامعة الفيوم</h1>
       <small>نظام توزيع الجداول النظرية والعملية</small>
@@ -1021,11 +1144,56 @@ table.preview td.name-cell{font-weight:800;text-align:right}
   </div>
 </div>
 
+<!-- مودال إضافة مكان جديد -->
+<div class="modal-bg" id="newRoomModal">
+  <div class="newroom-modal" role="dialog" aria-modal="true">
+    <div class="nr-head">
+      <div class="nr-icon">＋</div>
+      <div class="nr-titles">
+        <h3>إضافة مكان جديد</h3>
+        <p>أضف قاعة / مدرج / معمل إلى النظام</p>
+      </div>
+      <button class="icon-btn" onclick="closeNewRoomModal()" aria-label="إغلاق">✕</button>
+    </div>
+    <div class="nr-body">
+      <div class="warn" id="newRoomWarn"></div>
+      <div class="nr-field">
+        <label>اسم المكان <span class="req">*</span></label>
+        <input id="newRoomName" placeholder="مثال: مدرج أ.د. علي الباسل" autocomplete="off" maxlength="80">
+      </div>
+      <div class="nr-field">
+        <label>النوع <span class="req">*</span></label>
+        <div class="type-pills" id="newRoomPills">
+          <button type="button" class="tp active" data-type="قاعة" onclick="setNewRoomType('قاعة')">🚪 قاعة</button>
+          <button type="button" class="tp" data-type="مدرج" onclick="setNewRoomType('مدرج')">🏛️ مدرج</button>
+          <button type="button" class="tp" data-type="معمل" onclick="setNewRoomType('معمل')">🔬 معمل</button>
+        </div>
+        <input type="hidden" id="newRoomType" value="قاعة">
+      </div>
+      <div class="nr-row">
+        <div class="nr-field">
+          <label>السعة <span style="color:var(--muted);font-weight:600">(اختياري)</span></label>
+          <input id="newRoomCapacity" type="number" min="1" max="10000" placeholder="عدد الطلاب">
+        </div>
+        <div class="nr-field">
+          <label>المبنى <span style="color:var(--muted);font-weight:600">(اختياري)</span></label>
+          <input id="newRoomBuilding" placeholder="اسم المبنى">
+        </div>
+      </div>
+    </div>
+    <div class="nr-foot">
+      <button class="btn" onclick="closeNewRoomModal()">إلغاء</button>
+      <div class="spacer"></div>
+      <button class="btn dark" onclick="confirmNewRoom()">✓ إضافة المكان</button>
+    </div>
+  </div>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <script>
-/* ═══════════════ الثوابت ═══════════════ */
 const KEY = "agri_schedule_v3";
+const ROOMS_CLEANUP_KEY = "agri_rooms_cleanup_v2";
 const ROOM_TYPES = ["قاعة","مدرج","معمل"];
 const ROOM_PLURAL = { "قاعة":"قاعات", "مدرج":"مدرجات", "معمل":"معامل" };
 const ROOM_TYPE_COLORS = { "قاعة":"var(--hall)", "مدرج":"var(--aud)", "معمل":"var(--lab)" };
@@ -1034,12 +1202,16 @@ const ROOM_TYPE_ICONS  = { "قاعة":"🚪","مدرج":"🏛️","معمل":"�
 const DEFAULT_DAY_NAMES  = ["السبت","الأحد","الإثنين","الثلاثاء","الأربعاء","الخميس","الجمعة"];
 const DEFAULT_DAY_COLORS = ["#7fb0e0","#ea87ac","#5fc4b1","#8bc96a","#eda44e","#a483d9","#e58c5a"];
 const DEFAULT_COLORS     = ["#7fb0e0","#ea87ac","#5fc4b1","#8bc96a","#eda44e","#a483d9","#e58c5a","#8bb3e0","#d9a94e"];
-
 const DEFAULT_TIMES = [
   {time:"9:15 - 11:00",  kind:"نظري"},
   {time:"11:15 - 1:00",  kind:"عملي"},
   {time:"1:15 - 3:00",   kind:"عملي"},
   {time:"3:15 - 5:00",   kind:"عملي"}
+];
+const FACULTY_LOGO_URL = "https://l.top4top.io/p_3954hjl0b1.jpg";
+const REQUIRED_ROOMS = [
+  {name:"مدرج أ.د. علي الباسل", type:"مدرج"},
+  {name:"معمل الكيمياء",          type:"معمل"}
 ];
 
 function updateHeaderHeight(){
@@ -1050,13 +1222,12 @@ function updateHeaderHeight(){
 window.addEventListener("resize", updateHeaderHeight);
 window.addEventListener("orientationchange", () => setTimeout(updateHeaderHeight, 100));
 
-/* ═══════════════ الحالة ═══════════════ */
 let state = load();
 let curLevel = 0;
 let editing = null;
 let expandedDays = new Set();
 let pendingImport = null;
-let dragSrc = null;   /* ★ السحب والإفلات */
+let dragSrc = null;
 
 function makeDefaultTimes(dayIndex){
   return DEFAULT_TIMES.map((t, j) => ({...t, id: "t" + dayIndex + "_" + j}));
@@ -1067,8 +1238,11 @@ function defaultState(){
     year: "2026/2027",
     semester: "الأول",
     signatures: { viceDean: "", dean: "" },
-    rooms: [],
-    logos: {university:"", faculty:""},
+    rooms: [
+      {id:"r_ali_basel", name:"مدرج أ.د. علي الباسل", type:"مدرج", capacity:"", building:"", floor:"", notes:""},
+      {id:"r_chem_lab",  name:"معمل الكيمياء",          type:"معمل", capacity:"", building:"", floor:"", notes:""}
+    ],
+    logos: {university:"", faculty: FACULTY_LOGO_URL},
     days: DEFAULT_DAY_NAMES.map((name, i) => {
       const c = DEFAULT_DAY_COLORS[i % DEFAULT_DAY_COLORS.length];
       return {
@@ -1092,9 +1266,9 @@ function load(){
     const def = defaultState();
     const st  = Object.assign({}, def, raw);
     if(!st.semester) st.semester = "الأول";
-    if(!st.logos || typeof st.logos !== "object") st.logos = {university:"", faculty:""};
+    if(!st.logos || typeof st.logos !== "object") st.logos = {university:"", faculty: FACULTY_LOGO_URL};
     if(typeof st.logos.university !== "string") st.logos.university = "";
-    if(typeof st.logos.faculty !== "string")    st.logos.faculty = "";
+    if(typeof st.logos.faculty !== "string")    st.logos.faculty = FACULTY_LOGO_URL;
     if(!st.signatures || typeof st.signatures !== "object") st.signatures = { viceDean:"", dean:"" };
     if(typeof st.signatures.viceDean !== "string") st.signatures.viceDean = "";
     if(typeof st.signatures.dean !== "string")     st.signatures.dean = "";
@@ -1105,6 +1279,26 @@ function load(){
       capacity: r.capacity || "", building: r.building || "",
       floor: r.floor || "", notes: r.notes || ""
     }));
+
+    if(!localStorage.getItem(ROOMS_CLEANUP_KEY)){
+      const allowNames = REQUIRED_ROOMS.map(a => a.name);
+      st.rooms = st.rooms.filter(r => allowNames.includes(r.name));
+      REQUIRED_ROOMS.forEach(a => {
+        if(!st.rooms.find(r => r.name === a.name)){
+          st.rooms.push({id: uid(), name: a.name, type: a.type, capacity:"", building:"", floor:"", notes:""});
+        }
+      });
+      const validIds = new Set(st.rooms.map(r => r.id));
+      Object.keys(st.cells || {}).forEach(k => {
+        if(st.cells[k] && st.cells[k].roomId && !validIds.has(st.cells[k].roomId)){
+          st.cells[k].roomId = "";
+        }
+      });
+      try{
+        localStorage.setItem(KEY, JSON.stringify(st));
+        localStorage.setItem(ROOMS_CLEANUP_KEY, "1");
+      }catch(e){}
+    }
 
     if(!Array.isArray(st.days) || !st.days.length){
       st.days = def.days;
@@ -1189,7 +1383,7 @@ function restoreScroll(data){
 function save(){
   const scrollData = captureScroll();
   try{ localStorage.setItem(KEY, JSON.stringify(state)); }
-  catch(e){ toast("تعذّر الحفظ — قد تكون الذاكرة ممتلئة", "error"); }
+  catch(e){ toast("تعذّر الحفظ", "error"); }
   renderAll();
   restoreScroll(scrollData);
   requestAnimationFrame(() => restoreScroll(scrollData));
@@ -1212,11 +1406,10 @@ function toast(msg, type=""){
 function dayById(id){ return state.days.find(d => d.id === id); }
 function roomById(id){ return state.rooms.find(r => r.id === id); }
 
-/* ═══════════════ القاعات ═══════════════ */
 function renderRoomsList(){
   const host = document.getElementById("roomsList");
   if(!state.rooms.length){
-    host.innerHTML = '<div class="empty-note">لا توجد قاعات بعد — استخدم «📥 استيراد من Excel» أو أضف يدويًا.</div>';
+    host.innerHTML = '<div class="empty-note">لا توجد قاعات بعد.</div>';
     return;
   }
   const groups = {};
@@ -1256,36 +1449,32 @@ function renderRoomsList(){
 }
 
 function addRoomManual(){
-  const name = document.getElementById("roomQuick").value.trim();
-  const type = document.getElementById("roomQuickType").value;
-  if(!name){ toast("اكتب اسم القاعة", "error"); return; }
-  if(state.rooms.some(r => r.name === name && r.type === type)){
-    toast("هذه القاعة موجودة بالفعل", "error"); return;
-  }
-  state.rooms.push({id:uid(), name, type, capacity:"", building:"", floor:"", notes:""});
-  document.getElementById("roomQuick").value = "";
+  const nameEl = document.getElementById("roomQuick");
+  const typeEl = document.getElementById("roomQuickType");
+  const name = nameEl.value.trim();
+  const type = typeEl.value;
+  if(!name){ toast("⚠️ اكتب اسم المكان", "error"); nameEl.focus(); return; }
+  if(!ROOM_TYPES.includes(type)){ toast("⚠️ نوع غير صحيح", "error"); return; }
+  if(state.rooms.some(r => r.name === name)){ toast("⚠️ يوجد مكان بنفس الاسم", "error"); nameEl.focus(); return; }
+  state.rooms.push({id: uid(), name, type, capacity:"", building:"", floor:"", notes:""});
+  nameEl.value = "";
   save();
-  toast(`تمت إضافة ${type}: ${name}`, "success");
+  toast(`✓ تمت إضافة ${type}: ${name}`, "success");
 }
 
 function removeRoom(id){
   const r = roomById(id);
   if(!r) return;
-  if(!confirm(`حذف «${r.name}» (${r.type})؟ سيتم إفراغ الخانات المرتبطة بها.`)) return;
+  if(!confirm(`حذف «${r.name}» (${r.type})؟`)) return;
   state.rooms = state.rooms.filter(x => x.id !== id);
   Object.keys(state.cells).forEach(k => { if(state.cells[k].roomId === id) delete state.cells[k]; });
   save();
 }
 
-/* ═══════════════ استيراد Excel ═══════════════ */
 const ROOM_TEMPLATE_HEADERS = ["اسم القاعة","النوع","السعة","المبنى","الدور","ملاحظات"];
 const ROOM_TEMPLATE_SAMPLE  = [
-  ["مدرج 1","مدرج","300","المبنى الرئيسي","الأرضي","يستخدم للمحاضرات العامة"],
-  ["مدرج 2","مدرج","250","المبنى الرئيسي","الأول",""],
-  ["قاعة A101","قاعة","80","مبنى الأقسام","الأول",""],
-  ["قاعة A102","قاعة","75","مبنى الأقسام","الأول",""],
-  ["معمل كيمياء","معمل","40","مبنى المعامل","الأرضي","معمل تحاليل"],
-  ["معمل نبات","معمل","35","مبنى المعامل","الثاني",""]
+  ["مدرج أ.د. علي الباسل","مدرج","300","المبنى الرئيسي","الأرضي",""],
+  ["معمل الكيمياء","معمل","40","مبنى المعامل","الأرضي",""]
 ];
 
 const HEADER_ALIASES = {
@@ -1399,7 +1588,7 @@ async function handleImportFile(ev){
         notes:    mapping.notes    !== undefined ? String(row[mapping.notes]    ?? "").trim() : ""
       });
     }
-    if(!parsed.length){ toast("لم يتم العثور على بيانات صالحة في الملف", "error"); return; }
+    if(!parsed.length){ toast("لا توجد بيانات صالحة", "error"); return; }
 
     const analyzed = parsed.map(item => {
       const dupIdx = state.rooms.findIndex(r => r.name === item.name);
@@ -1409,7 +1598,7 @@ async function handleImportFile(ev){
     showImportPreview(analyzed);
   }catch(err){
     console.error(err);
-    toast("تعذّر قراءة الملف — تأكد أنه ملف Excel صالح", "error");
+    toast("تعذّر قراءة الملف", "error");
   }
   ev.target.value = "";
 }
@@ -1419,38 +1608,25 @@ function showImportPreview(analyzed){
   document.getElementById("importStep2").style.display = "";
   const okCount  = analyzed.filter(x => x.status === "ok").length;
   const dupCount = analyzed.filter(x => x.status === "dup").length;
-
   document.getElementById("importStats").innerHTML = `
-    <div class="stat-box new"><div class="num">${okCount}</div><div class="lbl">قاعة جديدة</div></div>
+    <div class="stat-box new"><div class="num">${okCount}</div><div class="lbl">جديدة</div></div>
     <div class="stat-box dup"><div class="num">${dupCount}</div><div class="lbl">مكرّرة</div></div>
     <div class="stat-box bad"><div class="num">0</div><div class="lbl">أخطاء</div></div>
     <div class="stat-box"><div class="num">${analyzed.length}</div><div class="lbl">الإجمالي</div></div>
   `;
-
   const rows = analyzed.map((x, i) => {
     const cls = x.status === "ok" ? "row-ok" : "row-dup";
-    const badge = x.status === "ok"
-      ? '<span class="pv-badge ok">جديد</span>'
-      : '<span class="pv-badge dup">مكرر</span>';
+    const badge = x.status === "ok" ? '<span class="pv-badge ok">جديد</span>' : '<span class="pv-badge dup">مكرر</span>';
     return `<tr class="${cls}">
-      <td>${i + 1}</td>
-      <td class="name-cell">${esc(x.name)}</td>
-      <td>${esc(x.type)}</td>
-      <td>${esc(x.capacity)}</td>
-      <td>${esc(x.building)}</td>
-      <td>${esc(x.floor)}</td>
-      <td>${esc(x.notes)}</td>
-      <td>${badge}</td>
+      <td>${i + 1}</td><td class="name-cell">${esc(x.name)}</td><td>${esc(x.type)}</td>
+      <td>${esc(x.capacity)}</td><td>${esc(x.building)}</td><td>${esc(x.floor)}</td>
+      <td>${esc(x.notes)}</td><td>${badge}</td>
     </tr>`;
   }).join("");
-
   document.getElementById("previewTable").innerHTML = `
-    <thead>
-      <tr><th>#</th><th>اسم القاعة</th><th>النوع</th><th>السعة</th>
-      <th>المبنى</th><th>الدور</th><th>ملاحظات</th><th>الحالة</th></tr>
-    </thead>
-    <tbody>${rows}</tbody>
-  `;
+    <thead><tr><th>#</th><th>اسم القاعة</th><th>النوع</th><th>السعة</th>
+    <th>المبنى</th><th>الدور</th><th>ملاحظات</th><th>الحالة</th></tr></thead>
+    <tbody>${rows}</tbody>`;
   document.getElementById("dupOptions").style.display = dupCount ? "" : "none";
 }
 
@@ -1458,13 +1634,10 @@ function confirmImport(){
   if(!pendingImport || !pendingImport.length){ closeImportRooms(); return; }
   const mode = document.querySelector('input[name="dupMode"]:checked')?.value || "skip";
   let added = 0, updated = 0, skipped = 0;
-
   pendingImport.forEach(item => {
     if(item.status === "ok"){
-      state.rooms.push({
-        id: uid(), name: item.name, type: item.type, capacity: item.capacity,
-        building: item.building, floor: item.floor, notes: item.notes
-      });
+      state.rooms.push({id: uid(), name: item.name, type: item.type, capacity: item.capacity,
+        building: item.building, floor: item.floor, notes: item.notes});
       added++;
     } else if(item.status === "dup"){
       if(mode === "skip"){ skipped++; }
@@ -1475,17 +1648,13 @@ function confirmImport(){
       } else if(mode === "duplicate"){
         let newName = item.name + " (2)"; let counter = 2;
         while(state.rooms.some(r => r.name === newName)){ counter++; newName = item.name + ` (${counter})`; }
-        state.rooms.push({
-          id: uid(), name: newName, type: item.type, capacity: item.capacity,
-          building: item.building, floor: item.floor, notes: item.notes
-        });
+        state.rooms.push({id: uid(), name: newName, type: item.type, capacity: item.capacity,
+          building: item.building, floor: item.floor, notes: item.notes});
         added++;
       }
     }
   });
-
-  save();
-  closeImportRooms();
+  save(); closeImportRooms();
   const parts = [];
   if(added)   parts.push(`${added} جديدة`);
   if(updated) parts.push(`${updated} محدّثة`);
@@ -1495,31 +1664,14 @@ function confirmImport(){
 
 function downloadRoomTemplate(){
   const aoa = [ROOM_TEMPLATE_HEADERS, ...ROOM_TEMPLATE_SAMPLE];
-  const instructions = [
-    ["📋 تعليمات استخدام قالب استيراد القاعات"],[""],
-    ["1) الأعمدة الأساسية:"],
-    ["   • اسم القاعة (مطلوب)"],
-    ["   • النوع — قاعة / مدرج / معمل"],
-    ["   • السعة — عدد الطلاب (اختياري)"],
-    ["   • المبنى — اسم المبنى (اختياري)"],
-    ["   • الدور — الأرضي / الأول ... (اختياري)"],
-    ["   • ملاحظات — أي معلومات إضافية (اختياري)"],[""],
-    ["2) يمكنك حذف الأعمدة غير المطلوبة."],
-    ["3) عناوين إنجليزية مدعومة: Name / Type / Capacity / Building / Floor / Notes"]
-  ];
-
   const wb = XLSX.utils.book_new();
   const ws1 = XLSX.utils.aoa_to_sheet(aoa);
   ws1["!cols"] = [{wch:20},{wch:12},{wch:10},{wch:20},{wch:12},{wch:30}];
   XLSX.utils.book_append_sheet(wb, ws1, "القاعات");
-  const ws2 = XLSX.utils.aoa_to_sheet(instructions);
-  ws2["!cols"] = [{wch:70}];
-  XLSX.utils.book_append_sheet(wb, ws2, "تعليمات");
   XLSX.writeFile(wb, "قالب-استيراد-القاعات.xlsx");
   toast("تم تحميل القالب", "success");
 }
 
-/* ═══════════════ الشعارات ═══════════════ */
 function openLogos(){ renderLogosPreview(); document.getElementById("logosModal").classList.add("show"); }
 function closeLogos(){ document.getElementById("logosModal").classList.remove("show"); save(); }
 
@@ -1532,7 +1684,6 @@ function buildPrintTitle(levelName){
 function renderLogosPreview(){
   const lvlName = state.levels[curLevel]?.name || "الفرقة الأولى";
   const {l1, l2} = buildPrintTitle(lvlName);
-
   document.getElementById("lpUniv").innerHTML = state.logos.university
     ? `<img src="${state.logos.university}" alt="شعار الجامعة">`
     : `<div class="lp-ph">شعار<br>الجامعة</div>`;
@@ -1541,7 +1692,6 @@ function renderLogosPreview(){
     : `<div class="lp-ph">شعار<br>الكلية</div>`;
   document.getElementById("lpTitle").innerHTML =
     `<span class="l1">${esc(l1)}</span><span class="l2">${esc(l2)}</span>`;
-
   ["university","faculty"].forEach(kind => {
     const host = document.getElementById(kind === "university" ? "prevUniv" : "prevFac");
     const src  = state.logos[kind];
@@ -1554,8 +1704,8 @@ function renderLogosPreview(){
 function uploadLogo(ev, kind){
   const f = ev.target.files[0];
   if(!f) return;
-  if(f.size > 2 * 1024 * 1024){ toast("حجم الصورة كبير (الحد 2MB)", "error"); ev.target.value=""; return; }
-  if(!f.type.startsWith("image/")){ toast("الملف ليس صورة", "error"); ev.target.value=""; return; }
+  if(f.size > 2 * 1024 * 1024){ toast("حجم كبير", "error"); ev.target.value=""; return; }
+  if(!f.type.startsWith("image/")){ toast("ملف ليس صورة", "error"); ev.target.value=""; return; }
   const reader = new FileReader();
   reader.onload = e => {
     state.logos[kind] = e.target.result;
@@ -1572,15 +1722,14 @@ function removeLogo(kind){
   renderLogosPreview(); save();
 }
 
-/* ═══════════════ المجموعات ═══════════════ */
 function addGroup(li){
   state.levels[li].groups.push({id:uid(), name:"مجموعة " + (state.levels[li].groups.length + 1), tracks:6});
   save();
 }
 function removeGroup(li, gi){
   const lvl = state.levels[li];
-  if(lvl.groups.length <= 1){ toast("يجب أن تبقى مجموعة واحدة على الأقل", "error"); return; }
-  if(!confirm(`حذف «${lvl.groups[gi].name}» وكل بياناتها؟`)) return;
+  if(lvl.groups.length <= 1){ toast("يجب أن تبقى مجموعة واحدة", "error"); return; }
+  if(!confirm(`حذف «${lvl.groups[gi].name}»؟`)) return;
   state.days.forEach(day => (day.timeSlots || []).forEach(t => {
     for(let tr = 0; tr < 40; tr++){
       delete state.cells[cellKey(li, gi, day.id, t.id, tr)];
@@ -1612,21 +1761,17 @@ function renameLevel(li, val){
   save();
 }
 
-/* ═══════════════ المفاتيح ═══════════════ */
 function cellKey(li, gi, dayId, tsId, track){ return [li, gi, dayId, tsId, track].join("|"); }
 function gkKey(li, gi, dayId, tsId){ return [li, gi, dayId, tsId].join("|"); }
-
 function getGroupKind(li, gi, dayId, tsId, fallback){
   return state.groupKind[gkKey(li, gi, dayId, tsId)] || fallback;
 }
 function rowMode(kind){ return kind === "عملي" ? "split" : "merged"; }
 function kindLabel(k){ return k === "عملي_كل" ? "عملي" : k; }
-
 function computeStarts(li){
   let s = 1;
   return state.levels[li].groups.map(g => { const st = s; s += g.tracks; return st; });
 }
-
 function occupantLabel(li, gi, track){
   const lvl = state.levels[li];
   const grp = lvl && lvl.groups[gi];
@@ -1635,7 +1780,6 @@ function occupantLabel(li, gi, track){
   const starts = computeStarts(li);
   return `سكشن ${starts[gi] + track} — ${grp.name}`;
 }
-
 function usageAt(dayId, tsId, roomId, excludeKeys){
   const ex = Array.isArray(excludeKeys) ? excludeKeys : (excludeKeys ? [excludeKeys] : []);
   return Object.entries(state.cells).find(([k, v]) => {
@@ -1654,176 +1798,108 @@ function teacherBusyAt(dayId, tsId, teacher, excludeKeys){
   });
 }
 
-/* ═══════════════ ★★★ السحب والإفلات ★★★ ═══════════════ */
 function readCellInfo(td){
   return {
-    li: +td.dataset.li,
-    gi: +td.dataset.gi,
-    dayId: td.dataset.day,
-    tsId: td.dataset.ts,
-    track: +td.dataset.track
+    li: +td.dataset.li, gi: +td.dataset.gi,
+    dayId: td.dataset.day, tsId: td.dataset.ts, track: +td.dataset.track
   };
 }
-
 function onCellDragStart(e){
   const td = e.currentTarget;
   if(!td.dataset.li){ e.preventDefault(); return; }
   const info = readCellInfo(td);
   const key = cellKey(info.li, info.gi, info.dayId, info.tsId, info.track);
-  if(!state.cells[key] || 
-     (!state.cells[key].subject && !state.cells[key].roomId && !state.cells[key].teacher)){
-    e.preventDefault();
-    return;
+  if(!state.cells[key] || (!state.cells[key].subject && !state.cells[key].roomId && !state.cells[key].teacher)){
+    e.preventDefault(); return;
   }
   dragSrc = info;
   td.classList.add("dragging");
   e.dataTransfer.effectAllowed = "move";
   try { e.dataTransfer.setData("text/plain", "cell"); } catch(err){}
 }
-
 function onCellDragOver(e){
   e.preventDefault();
   if(!dragSrc) return;
   const td = e.currentTarget;
   const info = readCellInfo(td);
-  
   td.classList.remove("drop-ok", "drop-bad");
-  
-  // نفس الفرقة؟
   if(info.li !== dragSrc.li){ td.classList.add("drop-bad"); return; }
-  
-  // نفس النمط؟
   const srcMode = dragSrc.track === -1 ? "merged" : "split";
   const tgtMode = info.track === -1 ? "merged" : "split";
   if(srcMode !== tgtMode){ td.classList.add("drop-bad"); return; }
-  
-  // نفس الخانة؟
-  if(dragSrc.li === info.li && dragSrc.gi === info.gi &&
-     dragSrc.dayId === info.dayId && dragSrc.tsId === info.tsId &&
-     dragSrc.track === info.track){ td.classList.add("drop-bad"); return; }
-  
-  // فحص التعارض
+  if(dragSrc.li === info.li && dragSrc.gi === info.gi && dragSrc.dayId === info.dayId &&
+     dragSrc.tsId === info.tsId && dragSrc.track === info.track){ td.classList.add("drop-bad"); return; }
   const srcKey = cellKey(dragSrc.li, dragSrc.gi, dragSrc.dayId, dragSrc.tsId, dragSrc.track);
   const tgtKey = cellKey(info.li, info.gi, info.dayId, info.tsId, info.track);
   const srcData = state.cells[srcKey];
   const excludeKeys = [srcKey, tgtKey];
-  
-  if(srcData && srcData.roomId){
-    if(usageAt(info.dayId, info.tsId, srcData.roomId, excludeKeys)){
-      td.classList.add("drop-bad"); return;
-    }
+  if(srcData && srcData.roomId && usageAt(info.dayId, info.tsId, srcData.roomId, excludeKeys)){
+    td.classList.add("drop-bad"); return;
   }
-  if(srcData && srcData.teacher){
-    if(teacherBusyAt(info.dayId, info.tsId, srcData.teacher, excludeKeys)){
-      td.classList.add("drop-bad"); return;
-    }
+  if(srcData && srcData.teacher && teacherBusyAt(info.dayId, info.tsId, srcData.teacher, excludeKeys)){
+    td.classList.add("drop-bad"); return;
   }
-  
   td.classList.add("drop-ok");
   e.dataTransfer.dropEffect = "move";
 }
-
-function onCellDragLeave(e){
-  e.currentTarget.classList.remove("drop-ok", "drop-bad");
-}
-
+function onCellDragLeave(e){ e.currentTarget.classList.remove("drop-ok", "drop-bad"); }
 function onCellDrop(e){
   e.preventDefault();
   const td = e.currentTarget;
   td.classList.remove("drop-ok", "drop-bad");
-  
   if(!dragSrc) return;
   const info = readCellInfo(td);
-  
-  if(info.li !== dragSrc.li){
-    toast("لا يمكن النقل بين الفرق المختلفة", "error");
-    dragSrc = null; return;
-  }
-  
+  if(info.li !== dragSrc.li){ toast("لا يمكن النقل بين الفرق", "error"); dragSrc = null; return; }
   const srcMode = dragSrc.track === -1 ? "merged" : "split";
   const tgtMode = info.track === -1 ? "merged" : "split";
-  if(srcMode !== tgtMode){
-    toast("لا يمكن النقل بين خانة نظرية وخانة عملية", "error");
-    dragSrc = null; return;
-  }
-  
-  if(dragSrc.li === info.li && dragSrc.gi === info.gi &&
-     dragSrc.dayId === info.dayId && dragSrc.tsId === info.tsId &&
-     dragSrc.track === info.track){ dragSrc = null; return; }
-  
+  if(srcMode !== tgtMode){ toast("لا يمكن النقل بين نظرية وعملية", "error"); dragSrc = null; return; }
+  if(dragSrc.li === info.li && dragSrc.gi === info.gi && dragSrc.dayId === info.dayId &&
+     dragSrc.tsId === info.tsId && dragSrc.track === info.track){ dragSrc = null; return; }
   const srcKey = cellKey(dragSrc.li, dragSrc.gi, dragSrc.dayId, dragSrc.tsId, dragSrc.track);
   const tgtKey = cellKey(info.li, info.gi, info.dayId, info.tsId, info.track);
   const srcData = state.cells[srcKey];
   const tgtData = state.cells[tgtKey];
-  
   if(!srcData){ dragSrc = null; return; }
   const excludeKeys = [srcKey, tgtKey];
-  
-  // فحص قاعة المصدر في الوجهة
   if(srcData.roomId){
     const clash = usageAt(info.dayId, info.tsId, srcData.roomId, excludeKeys);
-    if(clash){
-      const p = clash[0].split("|");
-      toast(`⚠️ القاعة مشغولة في الوجهة بـ ${occupantLabel(+p[0], +p[1], +p[4])}`, "error");
-      dragSrc = null; return;
-    }
+    if(clash){ const p = clash[0].split("|");
+      toast(`⚠️ القاعة مشغولة بـ ${occupantLabel(+p[0], +p[1], +p[4])}`, "error"); dragSrc = null; return; }
   }
-  // فحص أستاذ المصدر في الوجهة
   if(srcData.teacher){
     const tClash = teacherBusyAt(info.dayId, info.tsId, srcData.teacher, excludeKeys);
-    if(tClash){
-      const p = tClash[0].split("|");
-      toast(`⚠️ الأستاذ مشغول في الوجهة بـ ${occupantLabel(+p[0], +p[1], +p[4])}`, "error");
-      dragSrc = null; return;
-    }
+    if(tClash){ const p = tClash[0].split("|");
+      toast(`⚠️ الأستاذ مشغول بـ ${occupantLabel(+p[0], +p[1], +p[4])}`, "error"); dragSrc = null; return; }
   }
-  // فحص بيانات الوجهة في المصدر (عند التبديل)
   if(tgtData){
     if(tgtData.roomId){
       const clash = usageAt(dragSrc.dayId, dragSrc.tsId, tgtData.roomId, excludeKeys);
-      if(clash){
-        const p = clash[0].split("|");
-        toast(`⚠️ قاعة العنصر المُستبدل مشغولة في المصدر بـ ${occupantLabel(+p[0], +p[1], +p[4])}`, "error");
-        dragSrc = null; return;
-      }
+      if(clash){ toast("⚠️ تعارض في قاعة العنصر المُستبدل", "error"); dragSrc = null; return; }
     }
-    if(tgtData.teacher){
-      const tClash = teacherBusyAt(dragSrc.dayId, dragSrc.tsId, tgtData.teacher, excludeKeys);
-      if(tClash){
-        const p = tClash[0].split("|");
-        toast(`⚠️ أستاذ العنصر المُستبدل مشغول في المصدر بـ ${occupantLabel(+p[0], +p[1], +p[4])}`, "error");
-        dragSrc = null; return;
-      }
-    }
-    // تبديل
     state.cells[srcKey] = tgtData;
     state.cells[tgtKey] = srcData;
-    toast("تم التبديل بنجاح", "success");
+    toast("تم التبديل", "success");
   } else {
-    // نقل
     state.cells[tgtKey] = srcData;
     delete state.cells[srcKey];
-    toast("تم النقل بنجاح", "success");
+    toast("تم النقل", "success");
   }
-  
   dragSrc = null;
   save();
 }
-
 function onCellDragEnd(e){
   document.querySelectorAll(".cell.dragging").forEach(c => c.classList.remove("dragging"));
   document.querySelectorAll(".cell.drop-ok, .cell.drop-bad").forEach(c => c.classList.remove("drop-ok", "drop-bad"));
   dragSrc = null;
 }
 
-/* ═══════════════ إدارة الأيام والأوقات ═══════════════ */
 function openSettings(){ renderSettings(); document.getElementById("settingsModal").classList.add("show"); }
 function closeSettings(){ document.getElementById("settingsModal").classList.remove("show"); save(); }
 
 function renderSettings(){
   const daysHost = document.getElementById("daysEditor");
   if(!state.days.length){
-    daysHost.innerHTML = '<div class="empty-note">لا توجد أيام — أضف يومًا جديدًا.</div>';
+    daysHost.innerHTML = '<div class="empty-note">لا توجد أيام.</div>';
     return;
   }
   daysHost.innerHTML = state.days.map((d, i) => {
@@ -1836,22 +1912,18 @@ function renderSettings(){
       <div class="day-block">
         <div class="edit-row day-row">
           <span class="row-badge">${i + 1}</span>
-          <input type="text" value="${esc(d.name)}"
-                 onchange="setDayName('${d.id}', this.value)" placeholder="اسم اليوم">
+          <input type="text" value="${esc(d.name)}" onchange="setDayName('${d.id}', this.value)" placeholder="اسم اليوم">
           <div class="color-cluster">
             <label class="color-pick" title="لون اليوم">
-              <input type="color" value="${esc(baseC)}"
-                     oninput="updateDayColorLive('${d.id}', 'color', this.value)" onchange="save()">
+              <input type="color" value="${esc(baseC)}" oninput="updateDayColorLive('${d.id}', 'color', this.value)" onchange="save()">
               <span class="color-lbl">اليوم</span>
             </label>
             <label class="color-pick" title="لون النظري">
-              <input type="color" value="${esc(thC)}"
-                     oninput="updateDayColorLive('${d.id}', 'theoryColor', this.value)" onchange="save()">
+              <input type="color" value="${esc(thC)}" oninput="updateDayColorLive('${d.id}', 'theoryColor', this.value)" onchange="save()">
               <span class="color-lbl">نظري</span>
             </label>
             <label class="color-pick" title="لون العملي">
-              <input type="color" value="${esc(prC)}"
-                     oninput="updateDayColorLive('${d.id}', 'practicalColor', this.value)" onchange="save()">
+              <input type="color" value="${esc(prC)}" oninput="updateDayColorLive('${d.id}', 'practicalColor', this.value)" onchange="save()">
               <span class="color-lbl">عملي</span>
             </label>
           </div>
@@ -1866,19 +1938,18 @@ function renderSettings(){
               ${times.length ? times.map((t, j) => `
                 <div class="edit-row">
                   <span class="row-badge">${j + 1}</span>
-                  <input type="text" value="${esc(t.time)}"
-                         onchange="setDaySlotTime('${d.id}', ${j}, this.value)" placeholder="9:15 - 11:00">
+                  <input type="text" value="${esc(t.time)}" onchange="setDaySlotTime('${d.id}', ${j}, this.value)" placeholder="9:15 - 11:00">
                   <select onchange="setDaySlotKind('${d.id}', ${j}, this.value)">
                     <option value="نظري" ${t.kind === 'نظري' ? 'selected' : ''}>نظري</option>
                     <option value="عملي" ${t.kind === 'عملي' ? 'selected' : ''}>عملي</option>
                   </select>
-                  <button class="icon-btn" onclick="removeDaySlot('${d.id}', ${j})" title="حذف الوقت">🗑</button>
+                  <button class="icon-btn" onclick="removeDaySlot('${d.id}', ${j})" title="حذف">🗑</button>
                 </div>
-              `).join('') : '<div class="empty-note">لا توجد أوقات لهذا اليوم.</div>'}
+              `).join('') : '<div class="empty-note">لا توجد أوقات.</div>'}
             </div>
             <div class="day-times-actions">
               <button class="btn sm" onclick="addDaySlot('${d.id}')">＋ إضافة وقت</button>
-              <button class="btn sm" onclick="copyDayTimes('${d.id}')">📋 نسخ من يوم آخر</button>
+              <button class="btn sm" onclick="copyDayTimes('${d.id}')">📋 نسخ من يوم</button>
               <button class="btn sm" onclick="applyTimesToAll('${d.id}')">↔ تطبيق على الكل</button>
             </div>
           </div>
@@ -1891,13 +1962,10 @@ function renderSettings(){
 function setDayName(dayId, val){
   const d = dayById(dayId); if(!d) return;
   val = val.trim();
-  if(!val){ toast("اسم اليوم لا يمكن أن يكون فارغًا", "error"); renderSettings(); return; }
-  if(state.days.some(x => x.id !== dayId && x.name === val)){
-    toast("اسم اليوم مستخدم", "error"); renderSettings(); return;
-  }
+  if(!val){ toast("اسم اليوم مطلوب", "error"); renderSettings(); return; }
+  if(state.days.some(x => x.id !== dayId && x.name === val)){ toast("اسم مستخدم", "error"); renderSettings(); return; }
   d.name = val; save();
 }
-
 function updateDayColorLive(dayId, colorType, color){
   const d = dayById(dayId); if(!d) return;
   d[colorType] = color;
@@ -1915,9 +1983,8 @@ function updateDayColorLive(dayId, colorType, color){
   });
   try{ localStorage.setItem(KEY, JSON.stringify(state)); }catch(e){}
 }
-
 function removeDay(dayId){
-  if(state.days.length <= 1){ toast("يجب أن يبقى يوم واحد على الأقل", "error"); return; }
+  if(state.days.length <= 1){ toast("يجب بقاء يوم واحد", "error"); return; }
   const d = dayById(dayId); if(!d) return;
   if(!confirm(`حذف يوم «${d.name}»؟`)) return;
   Object.keys(state.cells).forEach(k => { if(k.split("|")[2] === dayId) delete state.cells[k]; });
@@ -1927,31 +1994,26 @@ function removeDay(dayId){
   save(); renderSettings();
   toast("تم حذف اليوم", "success");
 }
-
 function addDay(){
   const template = (state.days[0]?.timeSlots || []).map(t => ({...t, id: uid()}));
   const c = DEFAULT_COLORS[state.days.length % DEFAULT_COLORS.length];
-  const newDay = {
-    id: "d" + uid(), name: "يوم " + (state.days.length + 1),
+  const newDay = {id: "d" + uid(), name: "يوم " + (state.days.length + 1),
     color: c, theoryColor: c, practicalColor: c,
-    timeSlots: template.length ? template : [{id: uid(), time: "9:00 - 10:30", kind: "نظري"}]
-  };
+    timeSlots: template.length ? template : [{id: uid(), time: "9:00 - 10:30", kind: "نظري"}]};
   state.days.push(newDay);
   expandedDays.add(newDay.id);
   save(); renderSettings();
   toast("تمت إضافة يوم", "success");
 }
-
 function toggleDayTimes(dayId){
   if(expandedDays.has(dayId)) expandedDays.delete(dayId);
   else expandedDays.add(dayId);
   renderSettings();
 }
-
 function setDaySlotTime(dayId, idx, val){
   const d = dayById(dayId); if(!d || !d.timeSlots[idx]) return;
   val = val.trim();
-  if(!val){ toast("الوقت لا يمكن أن يكون فارغًا", "error"); renderSettings(); return; }
+  if(!val){ toast("الوقت مطلوب", "error"); renderSettings(); return; }
   d.timeSlots[idx].time = val; save();
 }
 function setDaySlotKind(dayId, idx, kind){
@@ -1968,14 +2030,8 @@ function removeDaySlot(dayId, idx){
   const d = dayById(dayId); if(!d || !d.timeSlots[idx]) return;
   const t = d.timeSlots[idx];
   if(!confirm(`حذف وقت «${t.time}»؟`)) return;
-  Object.keys(state.cells).forEach(k => {
-    const p = k.split("|");
-    if(p[2] === dayId && p[3] === t.id) delete state.cells[k];
-  });
-  Object.keys(state.groupKind).forEach(k => {
-    const p = k.split("|");
-    if(p[2] === dayId && p[3] === t.id) delete state.groupKind[k];
-  });
+  Object.keys(state.cells).forEach(k => { const p = k.split("|"); if(p[2] === dayId && p[3] === t.id) delete state.cells[k]; });
+  Object.keys(state.groupKind).forEach(k => { const p = k.split("|"); if(p[2] === dayId && p[3] === t.id) delete state.groupKind[k]; });
   d.timeSlots.splice(idx, 1);
   save(); renderSettings();
   toast("تم حذف الوقت", "success");
@@ -1984,12 +2040,12 @@ function copyDayTimes(dayId){
   const d = dayById(dayId); if(!d) return;
   if(state.days.length < 2){ toast("لا يوجد يوم آخر", "error"); return; }
   const names = state.days.map((x, j) => `  ${j + 1}) ${x.name}`).join("\n");
-  const ans = prompt(`انسخ الأوقات من أي يوم إلى «${d.name}»؟\n\n${names}\n\nأدخل الرقم:`);
+  const ans = prompt(`من أي يوم تنسخ؟\n\n${names}\n\nأدخل الرقم:`);
   if(ans === null) return;
   const j = parseInt(ans) - 1;
   if(isNaN(j) || j < 0 || j >= state.days.length){ toast("اختيار غير صحيح", "error"); return; }
   const src = state.days[j];
-  if(src.id === dayId){ toast("لا يمكن النسخ من نفس اليوم", "error"); return; }
+  if(src.id === dayId){ toast("لا يمكن من نفس اليوم", "error"); return; }
   if(!confirm(`استبدال أوقات «${d.name}» بأوقات «${src.name}»؟`)) return;
   d.timeSlots = src.timeSlots.map(t => ({...t, id: uid()}));
   save(); renderSettings();
@@ -1997,43 +2053,42 @@ function copyDayTimes(dayId){
 }
 function applyTimesToAll(dayId){
   const d = dayById(dayId); if(!d) return;
-  if(state.days.length < 2){ toast("لا توجد أيام أخرى", "error"); return; }
-  if(!confirm(`تطبيق أوقات «${d.name}» على كل الأيام؟`)) return;
+  if(state.days.length < 2){ toast("لا يوجد أيام أخرى", "error"); return; }
+  if(!confirm(`تطبيق أوقات «${d.name}» على الكل؟`)) return;
   const src = d.timeSlots.map(t => ({...t}));
   state.days.forEach(x => { if(x.id !== dayId) x.timeSlots = src.map(t => ({...t, id: uid()})); });
   save(); renderSettings();
-  toast("تم التطبيق على كل الأيام", "success");
+  toast("تم التطبيق", "success");
 }
 function bulkAddTime(){
   const time = document.getElementById("bulkTime").value.trim();
   const kind = document.getElementById("bulkKind").value;
-  if(!time){ toast("اكتب الوقت أولًا", "error"); return; }
+  if(!time){ toast("اكتب الوقت", "error"); return; }
   state.days.forEach(d => d.timeSlots.push({id: uid(), time, kind}));
   document.getElementById("bulkTime").value = "";
   save(); renderSettings();
-  toast("تمت الإضافة لكل الأيام", "success");
+  toast("تمت الإضافة للكل", "success");
 }
 function addSlot(){
   const time = document.getElementById("tsTime").value.trim();
   const kind = document.getElementById("tsKind").value;
-  if(!time){ toast("اكتب الوقت أولًا", "error"); return; }
+  if(!time){ toast("اكتب الوقت", "error"); return; }
   state.days.forEach(d => d.timeSlots.push({id: uid(), time, kind}));
   document.getElementById("tsTime").value = "";
   save();
-  toast("تمت الإضافة لكل الأيام", "success");
+  toast("تمت الإضافة للكل", "success");
 }
 function restoreDefaultColors(){
-  if(!confirm("استعادة الألوان الافتراضية لجميع الأيام؟")) return;
+  if(!confirm("استعادة الألوان الافتراضية؟")) return;
   state.days.forEach((d, i) => {
     const c = DEFAULT_COLORS[i % DEFAULT_COLORS.length];
     d.color = c; d.theoryColor = c; d.practicalColor = c;
     delete d.__prevColor;
   });
   save(); renderSettings();
-  toast("تم استعادة الألوان", "success");
+  toast("تم الاستعادة", "success");
 }
 
-/* ═══════════════ مودال الخانة ═══════════════ */
 function openCell(li, gi, dayId, tsId, track){
   editing = {li, gi, dayId, tsId, track};
   const key = cellKey(li, gi, dayId, tsId, track);
@@ -2041,27 +2096,21 @@ function openCell(li, gi, dayId, tsId, track){
   const day = dayById(dayId);
   const ts  = day?.timeSlots?.find(x => x.id === tsId);
   const grp = state.levels[li].groups[gi];
-
   document.getElementById("modalTitle").textContent = `${day?.name || ""} • ${ts?.time || ""}`;
   document.getElementById("modalSub").textContent =
     track >= 0 ? `${grp.name} — سكشن ${computeStarts(li)[gi] + track}` : `${grp.name} — خانة مجمّعة`;
-
   document.getElementById("cellKind").value = getGroupKind(li, gi, dayId, tsId, ts ? ts.kind : "نظري");
   document.getElementById("cellSubject").value = cur.subject || "";
   document.getElementById("cellTeacher").value = cur.teacher || "";
-
   const subjects = [...new Set(Object.values(state.cells).map(c => c.subject).filter(Boolean))];
   const teachers = [...new Set(Object.values(state.cells).map(c => c.teacher).filter(Boolean))];
   document.getElementById("subjectList").innerHTML = subjects.map(s => `<option value="${esc(s)}">`).join("");
   document.getElementById("teacherList").innerHTML = teachers.map(s => `<option value="${esc(s)}">`).join("");
-
   document.getElementById("cellRoom").value = cur.roomId || "";
   document.getElementById("roomSearch").value = "";
   document.getElementById("roomCards").innerHTML = buildRoomCards(li, gi, dayId, tsId, track, cur.roomId || "");
-
   const w = document.getElementById("cellWarn");
   w.classList.remove("show"); w.textContent = "";
-
   document.getElementById("cellModal").classList.add("show");
   setTimeout(()=> document.getElementById("cellSubject").focus(), 60);
 }
@@ -2069,18 +2118,16 @@ function openCell(li, gi, dayId, tsId, track){
 function buildRoomCards(li, gi, dayId, tsId, currentTrack, curRoomId){
   if(!state.rooms.length){
     return `<div class="empty-note" style="grid-column:1/-1;text-align:center;padding:22px">
-      📭 لا توجد قاعات بعد — اضغط <b>「＋ جديد」</b> أو استوردها من الشريط العلوي
+      📭 لا توجد قاعات — اضغط <b>「＋ جديد」</b>
     </div>`;
   }
   const excludedKey = cellKey(li, gi, dayId, tsId, currentTrack);
-
   const sorted = [...state.rooms].sort((a, b) => {
     const aBusy = !!usageAt(dayId, tsId, a.id, excludedKey) && a.id !== curRoomId;
     const bBusy = !!usageAt(dayId, tsId, b.id, excludedKey) && b.id !== curRoomId;
     if(aBusy !== bBusy) return aBusy ? 1 : -1;
     return ROOM_TYPES.indexOf(a.type) - ROOM_TYPES.indexOf(b.type);
   });
-
   return sorted.map(r => {
     const busyObj = usageAt(dayId, tsId, r.id, excludedKey);
     const isSelected = curRoomId === r.id;
@@ -2088,14 +2135,10 @@ function buildRoomCards(li, gi, dayId, tsId, currentTrack, curRoomId){
     const color = ROOM_TYPE_COLORS[r.type] || "#999";
     const icon  = ROOM_TYPE_ICONS[r.type] || "";
     let who = "";
-    if(busy){
-      const p = busyObj[0].split("|");
-      who = occupantLabel(+p[0], +p[1], +p[4]);
-    }
+    if(busy){ const p = busyObj[0].split("|"); who = occupantLabel(+p[0], +p[1], +p[4]); }
     return `<button type="button"
               class="room-card ${busy ? 'busy' : 'available'} ${isSelected ? 'selected' : ''}"
-              onclick="selectRoomCard('${r.id}', this)"
-              ${busy ? 'disabled' : ''}>
+              onclick="selectRoomCard('${r.id}', this)" ${busy ? 'disabled' : ''}>
       <div class="rc-head">
         <span class="rc-type" style="background:${color}">${icon} ${esc(r.type)}</span>
         <span class="rc-status">${busy ? '⛔ مشغولة' : (isSelected ? '✓ مختارة' : '✓ متاحة')}</span>
@@ -2138,24 +2181,58 @@ function filterRoomCards(){
 }
 
 function quickAddRoom(){
-  const name = prompt("اسم القاعة الجديدة:");
-  if(!name || !name.trim()) return;
-  const typeIn = (prompt("النوع: قاعة / مدرج / معمل", "قاعة") || "قاعة").trim();
-  if(!ROOM_TYPES.includes(typeIn)){ toast("نوع غير صحيح", "error"); return; }
-  const newRoom = {
-    id: uid(), name: name.trim(), type: typeIn,
-    capacity:"", building:"", floor:"", notes:""
-  };
+  document.getElementById("newRoomName").value = "";
+  document.getElementById("newRoomCapacity").value = "";
+  document.getElementById("newRoomBuilding").value = "";
+  document.getElementById("newRoomType").value = "قاعة";
+  document.getElementById("newRoomWarn").classList.remove("show");
+  document.querySelectorAll("#newRoomPills .tp").forEach(p => {
+    p.classList.toggle("active", p.dataset.type === "قاعة");
+  });
+  document.getElementById("newRoomModal").classList.add("show");
+  setTimeout(()=> document.getElementById("newRoomName").focus(), 80);
+}
+function closeNewRoomModal(){
+  document.getElementById("newRoomModal").classList.remove("show");
+}
+function setNewRoomType(type){
+  document.getElementById("newRoomType").value = type;
+  document.querySelectorAll("#newRoomPills .tp").forEach(p => {
+    p.classList.toggle("active", p.dataset.type === type);
+  });
+}
+function confirmNewRoom(){
+  const name = document.getElementById("newRoomName").value.trim();
+  const type = document.getElementById("newRoomType").value;
+  const capacity = document.getElementById("newRoomCapacity").value.trim();
+  const building = document.getElementById("newRoomBuilding").value.trim();
+  const warnEl = document.getElementById("newRoomWarn");
+  if(!name){
+    warnEl.textContent = "⚠️ اكتب اسم المكان";
+    warnEl.classList.add("show");
+    document.getElementById("newRoomName").focus();
+    return;
+  }
+  if(!ROOM_TYPES.includes(type)){
+    warnEl.textContent = "⚠️ نوع غير صحيح";
+    warnEl.classList.add("show"); return;
+  }
+  if(state.rooms.some(r => r.name === name)){
+    warnEl.textContent = "⚠️ يوجد مكان بنفس الاسم";
+    warnEl.classList.add("show");
+    document.getElementById("newRoomName").focus(); return;
+  }
+  const newRoom = {id: uid(), name, type, capacity, building, floor:"", notes:""};
   state.rooms.push(newRoom);
   try{ localStorage.setItem(KEY, JSON.stringify(state)); }catch(e){}
   if(editing){
     const {li, gi, dayId, tsId, track} = editing;
-    document.getElementById("roomCards").innerHTML =
-      buildRoomCards(li, gi, dayId, tsId, track, newRoom.id);
+    document.getElementById("roomCards").innerHTML = buildRoomCards(li, gi, dayId, tsId, track, newRoom.id);
     document.getElementById("cellRoom").value = newRoom.id;
   }
   renderRoomsList();
-  toast(`تمت إضافة ${typeIn}: ${name}`, "success");
+  closeNewRoomModal();
+  toast(`✓ تمت إضافة ${type}: ${name}`, "success");
 }
 
 function closeModal(){
@@ -2173,49 +2250,33 @@ function saveCell(){
   const teacher = document.getElementById("cellTeacher").value.trim();
   const roomId  = document.getElementById("cellRoom").value;
   const tracks  = state.levels[li].groups[gi].tracks;
-
   const keysToReplace = [];
-  if(rowMode(kind) === "split"){
-    keysToReplace.push(cellKey(li, gi, dayId, tsId, -1));
-  } else {
-    for(let tr = 0; tr < tracks; tr++) keysToReplace.push(cellKey(li, gi, dayId, tsId, tr));
-  }
+  if(rowMode(kind) === "split"){ keysToReplace.push(cellKey(li, gi, dayId, tsId, -1)); }
+  else { for(let tr = 0; tr < tracks; tr++) keysToReplace.push(cellKey(li, gi, dayId, tsId, tr)); }
   keysToReplace.push(key);
-
   const warnEl = document.getElementById("cellWarn");
-
   if(roomId){
     const clash = usageAt(dayId, tsId, roomId, keysToReplace);
     if(clash){
       const p = clash[0].split("|");
-      warnEl.innerHTML = `⚠️ القاعة مشغولة بواسطة:<br><b>${esc(occupantLabel(+p[0], +p[1], +p[4]))}</b>`;
-      warnEl.classList.add("show");
-      return;
+      warnEl.innerHTML = `⚠️ القاعة مشغولة بـ:<br><b>${esc(occupantLabel(+p[0], +p[1], +p[4]))}</b>`;
+      warnEl.classList.add("show"); return;
     }
   }
   if(teacher){
     const tClash = teacherBusyAt(dayId, tsId, teacher, keysToReplace);
     if(tClash){
       const p = tClash[0].split("|");
-      warnEl.innerHTML = `⚠️ الأستاذ «${esc(teacher)}» مشغول في نفس الوقت:<br><b>${esc(occupantLabel(+p[0], +p[1], +p[4]))}</b>`;
-      warnEl.classList.add("show");
-      return;
+      warnEl.innerHTML = `⚠️ الأستاذ «${esc(teacher)}» مشغول:<br><b>${esc(occupantLabel(+p[0], +p[1], +p[4]))}</b>`;
+      warnEl.classList.add("show"); return;
     }
   }
-
-  if(rowMode(kind) === "split"){
-    delete state.cells[cellKey(li, gi, dayId, tsId, -1)];
-  } else {
-    for(let tr = 0; tr < tracks; tr++) delete state.cells[cellKey(li, gi, dayId, tsId, tr)];
-  }
-
+  if(rowMode(kind) === "split"){ delete state.cells[cellKey(li, gi, dayId, tsId, -1)]; }
+  else { for(let tr = 0; tr < tracks; tr++) delete state.cells[cellKey(li, gi, dayId, tsId, tr)]; }
   state.groupKind[gkKey(li, gi, dayId, tsId)] = kind;
-
   if(!subject && !roomId && !teacher) delete state.cells[key];
   else state.cells[key] = {subject, roomId, teacher};
-
-  closeModal();
-  save();
+  closeModal(); save();
 }
 
 function clearCell(){
@@ -2223,10 +2284,9 @@ function clearCell(){
   const {li, gi, dayId, tsId, track} = editing;
   delete state.cells[cellKey(li, gi, dayId, tsId, track)];
   closeModal(); save();
-  toast("تم مسح الخانة");
+  toast("تم المسح");
 }
 
-/* ═══════════════ التوقيعات ═══════════════ */
 function setSignature(kind, val){
   if(!state.signatures) state.signatures = { viceDean: "", dean: "" };
   state.signatures[kind] = val;
@@ -2236,7 +2296,6 @@ function setSignature(kind, val){
   try{ localStorage.setItem(KEY, JSON.stringify(state)); }catch(e){}
 }
 
-/* ═══════════════ العرض ═══════════════ */
 function renderTabs(){
   document.getElementById("levelTabs").innerHTML = state.levels.map((l, i) =>
     `<button class="tab ${i === curLevel ? "active" : ""}" onclick="curLevel=${i};renderAll()">${esc(l.name)}</button>`
@@ -2263,14 +2322,13 @@ function levelTable(li){
   const starts = computeStarts(li);
   const totalTracks = lvl.groups.reduce((a, g) => a + g.tracks, 0);
   const totalSessions = Object.keys(state.cells).filter(k => k.split("|")[0] === String(li)).length;
-
   if(!state.days.length){
     return `<div class="card" style="text-align:center;padding:40px;color:var(--muted);font-weight:700">
-      ⚠️ لا توجد أيام. اضغط على «⚙ الأيام والأوقات» لإضافتها.
+      ⚠️ لا توجد أيام.
     </div>`;
   }
 
-  const head1 = `<tr><th rowspan="2">اليوم</th><th rowspan="2">الوقت</th>` +
+  const head1 = `<tr class="head-row-1"><th rowspan="2">اليوم</th><th rowspan="2">الوقت</th>` +
     lvl.groups.map((g, gi) => `<th colspan="${g.tracks}">
       <div class="grp-chip">
         <input type="text" value="${esc(g.name)}" onchange="renameGroup(${li},${gi},this.value)">
@@ -2279,18 +2337,16 @@ function levelTable(li){
         <button class="no-print" onclick="removeGroup(${li},${gi})">✕</button>
       </div></th>`).join("") + `</tr>`;
 
-  const head2 = lvl.groups.map((g, gi) =>
+  const head2 = `<tr class="head-row-2">` + lvl.groups.map((g, gi) =>
     Array.from({length: g.tracks}, (_, i) => `<th>${starts[gi] + i}</th>`).join("")
-  ).join("");
+  ).join("") + `</tr>`;
 
-  // ★ بناء صفوف الجدول مع خصائص السحب والإفلات
   let body = "";
   state.days.forEach((dayObj, di) => {
     const dayTs = dayObj.timeSlots || [];
     const baseC = dayObj.color || "#fff";
     const thC   = dayObj.theoryColor || baseC;
     const prC   = dayObj.practicalColor || baseC;
-
     if(dayTs.length === 0){
       body += `<tr data-day="${di}">
         <td class="daycell" style="background:${esc(baseC)}">${esc(dayObj.name)}</td>
@@ -2300,7 +2356,6 @@ function levelTable(li){
       </tr>`;
       return;
     }
-
     dayTs.forEach((t, ti) => {
       body += `<tr data-day="${di}">`;
       if(ti === 0){
@@ -2313,27 +2368,20 @@ function levelTable(li){
           const content = cellHtml(li, gi, dayObj.id, t, -1, gk);
           body += `<td class="cell merged" 
             data-li="${li}" data-gi="${gi}" data-day="${dayObj.id}" data-ts="${t.id}" data-track="-1"
-            colspan="${g.tracks}" 
-            style="background:${esc(thC)}"
-            draggable="${content ? 'true' : 'false'}"
+            colspan="${g.tracks}" style="background:${esc(thC)}" draggable="${content ? 'true' : 'false'}"
             onclick="openCell(${li},${gi},'${dayObj.id}','${t.id}',-1)"
-            ondragstart="onCellDragStart(event)"
-            ondragover="onCellDragOver(event)"
-            ondragleave="onCellDragLeave(event)"
-            ondrop="onCellDrop(event)"
+            ondragstart="onCellDragStart(event)" ondragover="onCellDragOver(event)"
+            ondragleave="onCellDragLeave(event)" ondrop="onCellDrop(event)"
             ondragend="onCellDragEnd(event)">${content}</td>`;
-        }else{
+        } else {
           for(let tr = 0; tr < g.tracks; tr++){
             const content = cellHtml(li, gi, dayObj.id, t, tr, gk);
             body += `<td class="cell split" 
               data-li="${li}" data-gi="${gi}" data-day="${dayObj.id}" data-ts="${t.id}" data-track="${tr}"
-              style="background:${esc(prC)}"
-              draggable="${content ? 'true' : 'false'}"
+              style="background:${esc(prC)}" draggable="${content ? 'true' : 'false'}"
               onclick="openCell(${li},${gi},'${dayObj.id}','${t.id}',${tr})"
-              ondragstart="onCellDragStart(event)"
-              ondragover="onCellDragOver(event)"
-              ondragleave="onCellDragLeave(event)"
-              ondrop="onCellDrop(event)"
+              ondragstart="onCellDragStart(event)" ondragover="onCellDragOver(event)"
+              ondragleave="onCellDragLeave(event)" ondrop="onCellDrop(event)"
               ondragend="onCellDragEnd(event)">${content}</td>`;
           }
         }
@@ -2346,18 +2394,22 @@ function levelTable(li){
   const univLogo = state.logos.university ? `<img src="${state.logos.university}" alt="">` : "";
   const facLogo  = state.logos.faculty    ? `<img src="${state.logos.faculty}" alt="">`    : "";
 
-  const printHead = `<div class="print-head">
-    <div class="print-logo">${univLogo}</div>
-    <div class="print-title-wrap">
-      <h2 class="print-title">
-        <span class="l1">${esc(l1)}</span>
-        <span class="l2">${esc(l2)}</span>
-      </h2>
-    </div>
-    <div class="print-logo">${facLogo}</div>
-  </div>`;
+  /* ★★★ صف رأس الطباعة — داخل thead ليتكرر على كل صفحة ★★★ */
+  const printTitleRow = `<tr class="print-title-row">
+    <th colspan="${2 + totalTracks}">
+      <div class="print-head-inner">
+        <div class="print-logo-wrap">${univLogo}</div>
+        <div class="print-title-wrap">
+          <div class="print-title">
+            <span class="l1">${esc(l1)}</span>
+            <span class="l2">${esc(l2)}</span>
+          </div>
+        </div>
+        <div class="print-logo-wrap">${facLogo}</div>
+      </div>
+    </th>
+  </tr>`;
 
-  // ★★ التوقيعات — يمين: وكيل الكلية | يسار: عميد الكلية
   const sigs = state.signatures || { viceDean: "", dean: "" };
   const signaturesSection = `
     <div class="signatures-section">
@@ -2380,14 +2432,16 @@ function levelTable(li){
   return `
     <div class="level-head no-print">
       <input class="level-name" value="${esc(lvl.name)}" onchange="renameLevel(${li}, this.value)">
-      <span class="pill">${totalSessions} خانة مُوزّعة</span>
+      <span class="pill">${totalSessions} خانة</span>
       <span class="pill">${lvl.groups.length} مجموعة</span>
       <div class="spacer"></div>
       <button class="btn" onclick="addGroup(${li})">＋ إضافة مجموعة</button>
     </div>
-    ${printHead}
     <div class="table-wrap">
-      <table class="grid"><thead>${head1}${head2}</thead><tbody>${body}</tbody></table>
+      <table class="grid">
+        <thead>${printTitleRow}${head1}${head2}</thead>
+        <tbody>${body}</tbody>
+      </table>
     </div>
     ${signaturesSection}`;
 }
@@ -2406,7 +2460,6 @@ function renderAll(){
   renderLevels();
 }
 
-/* ═══════════════ الطباعة ═══════════════ */
 function printLevel(){
   document.querySelectorAll(".panel").forEach(p => p.classList.remove("printing"));
   const p = document.querySelector(`.panel[data-level="${curLevel}"]`);
@@ -2417,7 +2470,6 @@ window.addEventListener("afterprint", () => {
   document.querySelectorAll(".panel.printing").forEach(p => p.classList.remove("printing"));
 });
 
-/* ═══════════════ النسخ الاحتياطي ═══════════════ */
 function exportJSON(){
   const blob = new Blob([JSON.stringify(state, null, 2)], {type:"application/json"});
   const a = document.createElement("a");
@@ -2435,7 +2487,7 @@ function importJSON(ev){
     try{
       const data = JSON.parse(e.target.result);
       if(!data.levels) throw new Error("bad");
-      if(!confirm("استبدال كل البيانات بالنسخة المستعادة؟")) return;
+      if(!confirm("استبدال كل البيانات؟")) return;
       const backup = localStorage.getItem(KEY);
       localStorage.setItem(KEY, JSON.stringify(data));
       state = load();
@@ -2462,7 +2514,6 @@ function exportExcel(){
   const totalTracks = lvl.groups.reduce((a, g) => a + g.tracks, 0);
   const {l1, l2} = buildPrintTitle(lvl.name);
   const aoa = [[l1], [l2], []];
-
   const row1 = ["اليوم", "الوقت"];
   const row2 = ["", ""];
   lvl.groups.forEach((g, gi) => {
@@ -2471,7 +2522,6 @@ function exportExcel(){
     for(let i = 0; i < g.tracks; i++) row2.push(String(starts[gi] + i));
   });
   aoa.push(row1, row2);
-
   state.days.forEach(dayObj => {
     const dayTs = dayObj.timeSlots || [];
     if(dayTs.length === 0){
@@ -2486,7 +2536,7 @@ function exportExcel(){
         if(rowMode(gk) === "merged"){
           row.push(cellText(state.cells[cellKey(li, gi, dayObj.id, t.id, -1)]));
           for(let i = 1; i < g.tracks; i++) row.push("");
-        }else{
+        } else {
           for(let tr = 0; tr < g.tracks; tr++){
             row.push(cellText(state.cells[cellKey(li, gi, dayObj.id, t.id, tr)]));
           }
@@ -2495,7 +2545,6 @@ function exportExcel(){
       aoa.push(row);
     });
   });
-
   const ws = XLSX.utils.aoa_to_sheet(aoa);
   ws["!merges"] = [
     {s:{r:0,c:0}, e:{r:0,c:1 + totalTracks}},
@@ -2505,20 +2554,20 @@ function exportExcel(){
   const wb = XLSX.utils.book_new();
   XLSX.utils.book_append_sheet(wb, ws, (lvl.name || "الجدول").slice(0, 28));
   XLSX.writeFile(wb, `جدول-${lvl.name}.xlsx`);
-  toast("تم تصدير Excel", "success");
+  toast("تم التصدير", "success");
 }
 
 function resetAll(){
   if(!confirm("⚠️ سيتم حذف كل البيانات نهائيًا. متابعة؟")) return;
-  if(!confirm("تأكيد أخير — لا يمكن التراجع.")) return;
+  if(!confirm("تأكيد أخير؟")) return;
   localStorage.removeItem(KEY);
+  localStorage.removeItem(ROOMS_CLEANUP_KEY);
   state = defaultState();
   curLevel = 0; expandedDays = new Set();
   save();
   toast("تم التصفير");
 }
 
-/* ═══════════════ الأحداث ═══════════════ */
 document.getElementById("year").addEventListener("change", function(){
   state.year = this.value.trim() || state.year; save();
 });
@@ -2528,24 +2577,24 @@ document.getElementById("semester").addEventListener("change", function(){
 
 document.addEventListener("keydown", e => {
   if(e.key === "Escape"){
-    if(document.getElementById("cellModal").classList.contains("show")) closeModal();
+    if(document.getElementById("newRoomModal").classList.contains("show")) closeNewRoomModal();
+    else if(document.getElementById("cellModal").classList.contains("show")) closeModal();
     else if(document.getElementById("settingsModal").classList.contains("show")) closeSettings();
     else if(document.getElementById("logosModal").classList.contains("show")) closeLogos();
     else if(document.getElementById("importRoomsModal").classList.contains("show")) closeImportRooms();
   }
-  if((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "s"){
-    e.preventDefault(); exportJSON();
-  }
+  if((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "s"){ e.preventDefault(); exportJSON(); }
   if((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "p"){
     if(!document.getElementById("cellModal").classList.contains("show") &&
        !document.getElementById("settingsModal").classList.contains("show")){
       e.preventDefault(); printLevel();
     }
   }
+  if(e.key === "Enter" && document.getElementById("newRoomModal").classList.contains("show")){
+    if(e.target.tagName !== "TEXTAREA"){ e.preventDefault(); confirmNewRoom(); }
+  }
   if(e.key === "Enter" && document.getElementById("cellModal").classList.contains("show")){
-    if(e.target.tagName !== "TEXTAREA" && e.target.id !== "roomSearch"){
-      e.preventDefault(); saveCell();
-    }
+    if(e.target.tagName !== "TEXTAREA" && e.target.id !== "roomSearch"){ e.preventDefault(); saveCell(); }
   }
 });
 
@@ -2554,13 +2603,13 @@ document.querySelectorAll(".modal-bg").forEach(bg => {
     if(e.target === bg){
       if(bg.id === "settingsModal") closeSettings();
       else if(bg.id === "cellModal") closeModal();
+      else if(bg.id === "newRoomModal") closeNewRoomModal();
       else if(bg.id === "logosModal") closeLogos();
       else if(bg.id === "importRoomsModal") closeImportRooms();
     }
   });
 });
 
-/* ═══════════════ التشغيل ═══════════════ */
 updateHeaderHeight();
 renderAll();
 window.addEventListener("load", updateHeaderHeight);
